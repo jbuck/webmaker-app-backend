@@ -1,0 +1,27 @@
+{
+  "name": "webmaker-app-backend",
+  "version": "1.0.0",
+  "description": "The backend API for all your webmaker-app needs!",
+  "main": "server.js",
+  "dependencies": {
+    "clone": "^0.2.0",
+    "habitat": "^3.1.2",
+    "hapi": "^8.1.0",
+    "s3-post-policy": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbuck/webmaker-app-backend.git"
+  },
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/jbuck/webmaker-app-backend/issues"
+  },
+  "homepage": "https://github.com/jbuck/webmaker-app-backend"
+}

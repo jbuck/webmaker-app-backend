@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test</title>
+  </head>
+  <body>
+    <form id="form">
+      <input type="file" name="file" id="file">
+      <input type="submit" id="submit">
+    </form>
+    <script>
+      function upload(files, data) {
+        var form = new FormData();
+
+        data.starts_with.forEach(function(field) {
+          if (field === "Content-Type") {
+            data.fields[field] = data.fields[field] + files[0].type;
+          } else if (field === "key") {
+            data.fields[field] = data.fields[field] + "${filename}";
+          }
+        });
+
+        Object.keys(data.fields).forEach(function(field) {
+          form.append(field, data.fields[field]);
+        });
+        form.append("file", files[0]);
+
+        var s3 = new XMLHttpRequest();
+        s3.open("POST", data.host, true);
+        s3.send(form);
+      }
+
+      document.querySelector("#form").addEventListener("submit", function(form_event) {
+        form_event.preventDefault();
+
+        var signed = new XMLHttpRequest();
+        signed.open("GET", "/requesturl", true);
+        signed.responseType = "json";
+        signed.addEventListener("load", function(xhr_event) {
+          upload(document.querySelector("#file").files, xhr_event.target.response);
+        });
+        signed.send();
+      })
+    </script>
+  </body>
+</html>
